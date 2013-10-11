@@ -68,7 +68,7 @@ module Lita
         end
 
         def global?
-          @flags.include?('g')
+          @flags && @flags.include?('g')
         end
       end
 

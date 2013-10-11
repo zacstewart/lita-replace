@@ -11,6 +11,12 @@ describe Lita::Handlers::Replace, lita_handler: true do
   describe '#replace' do
     it 'repeats corrected messages matched by the find-and-replace' do
       send_message 'whoops, I did that, whoops'
+      send_message 's/whoops/awesome'
+      expect(replies.last).to eq('Test User: awesome, I did that, whoops')
+    end
+
+    it 'passes along flags' do
+      send_message 'Whoops, I did that, whoops'
       send_message 's/whoops/awesome/i'
       expect(replies.last).to eq('Test User: awesome, I did that, whoops')
     end
