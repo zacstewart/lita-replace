@@ -43,7 +43,9 @@ module Lita
         end
 
         def replace
+          return unless matched_anything?
           message = last_matching_message.dup
+
           if global?
             message.body.gsub!(@pattern, @replacement)
           else
@@ -53,10 +55,14 @@ module Lita
           "#{message.user.name}: #{message.body}"
         end
 
+        def matched_anything?
+          !! last_matching_message
+        end
+
         private
 
         def last_matching_message
-          @buffer.messages.reverse.detect do |message|
+          @last_matching_message ||= @buffer.messages.reverse.detect do |message|
             @pattern === message.body && message.body != @command
           end
         end
@@ -78,7 +84,7 @@ module Lita
         buffer = get_buffer(response)
         command = response.message.body
         replacement = Replacement.new(buffer, command)
-        response.reply replacement.replace
+        response.reply replacement.replace if replacement.matched_anything?
       end
 
       private

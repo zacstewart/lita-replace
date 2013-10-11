@@ -20,5 +20,11 @@ describe Lita::Handlers::Replace, lita_handler: true do
       send_message 's/whoops/awesome/g'
       expect(replies.last).to eq('Test User: awesome, I did that, awesome')
     end
+
+    it "ignores commands when they don't match a message" do
+      send_message 'whoops, I did that, whoops'
+      send_message 's/battletoads/awesome/g'
+      expect(replies).to be_empty
+    end
   end
 end
