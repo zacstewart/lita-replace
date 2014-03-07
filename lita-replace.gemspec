@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-replace"
-  spec.version       = "0.0.1"
+  spec.version       = "0.0.2"
   spec.authors       = ["Zac Stewart"]
   spec.email         = ["zgstewart@gmail.com"]
   spec.description   = %q{A Lita handler that fixes your stupid typos with VIM-like find and replace.}
